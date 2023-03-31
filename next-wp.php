@@ -3,7 +3,7 @@
  * Plugin Name:       Next WP
  * Plugin URI:        https://github.com/Stikky-Media/next-wp-plugins
  * Description:       Base plugin for Next-WP configuration 
- * Author:            Stikky Media
+ * Author:            Cloak Labs
  * Author URI:        https://www.stikkymedia.com/
  * Version:           0.5.0
  * Requires at least: 5.5
