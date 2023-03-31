@@ -1,4 +1,6 @@
-# NextWP Wordpress Plugin
+# This repo is not functional, it is a work in progress
+
+## NextWP Wordpress Plugin
 This plugin is designed to integrate a Wordpress backend with a NextJS frontend. It has a required NPM package to be used in tandem with it.
 
 ## Features
