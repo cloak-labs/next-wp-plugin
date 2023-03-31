@@ -5,15 +5,13 @@
   Get Options from settings
 */
 
-$main_options = get_option('next_wp_settings');
-$next_frontend_url = $main_options['next_frontend_url'] ?? NULL;
-$next_preview_secret = $main_options['next_preview_secret'] ?? NULL;
-$enable_dev_mode = $main_options['enable_dev_mode'] ?? NULL;
+$next_frontend_url = NEXT_WP_NEXT_FRONTEND_URL ?? NULL;
+$next_preview_secret = NEXT_WP_PREVIEW_SECRET ?? NULL;
+$enable_dev_mode = NEXT_WP_ENABLE_DEV_MODE ?? NULL;
 
-$posts_options = get_option('next_wp_posts_settings');
-$enable_view_post = $posts_options['enable_view_post'] ?? NULL;
-$enable_preview_post = $posts_options['enable_preview_post'] ?? NULL;
-$enable_isr = $posts_options['next_frontend_url'] ?? NULL;
+$enable_view_post = NEXT_WP_OVERRIDE_VIEW_POST_LINK ?? NULL;
+$enable_preview_post = NEXT_WP_OVERRIDE_PREVIEW_POST_LINK ?? NULL;
+$enable_isr = NEXT_WP_ENABLE_ISR ?? NULL;
 
 
 /*
@@ -22,9 +20,8 @@ $enable_isr = $posts_options['next_frontend_url'] ?? NULL;
 
 function get_frontend_url()
 {
-  $options = get_option('next_wp_settings');
-  $next_frontend_url = $options['next_frontend_url'] ?? NULL;
-  $enable_dev_mode = $options['enable_dev_mode'] ?? NULL;
+  $next_frontend_url = NEXT_WP_NEXT_FRONTEND_URL ?? NULL;
+  $enable_dev_mode = NEXT_WP_ENABLE_DEV_MODE ?? NULL;
 
   if ($enable_dev_mode) {
     return "http://localhost:3000";
@@ -34,7 +31,6 @@ function get_frontend_url()
     return $next_frontend_url;
   }
 
-  $var = true;
   return site_url();
 }
 
@@ -44,8 +40,7 @@ function get_frontend_url()
 
 function get_preview_secret()
 {
-  $options = get_option('next_wp_settings');
-  $next_preview_secret = $options['next_preview_secret'] ?? NULL;
+  $next_preview_secret = NEXT_WP_PREVIEW_SECRET ?? NULL;
 
   if ($next_preview_secret) {
     return $next_preview_secret;
@@ -81,11 +76,8 @@ if ($enable_view_post) {
 add_filter('preview_post_link', 'preview_url', 10);
 function preview_url()
 {
-  $posts_options = get_option('next_wp_posts_settings');
-  $enable_preview_post = $posts_options['enable_preview_post'] ?? NULL;
-  
-  $api_options = get_option('next_wp_rest_settings');
-  $preview_api_route = $api_options['preview_api_route'] ? $api_options['preview_api_route'] : 'preview';
+  $enable_preview_post = NEXT_WP_ENABLE_PREVIEW_POST ?? NULL;
+  $preview_api_route = NEXT_WP_PREVIEW_API_ROUTE ? NEXT_WP_PREVIEW_API_ROUTE : 'preview';
 
   if ($enable_preview_post) {
     global $post;
@@ -103,42 +95,41 @@ function preview_url()
   If somehow our 'preview_post_link' filter doesn't work and the admin user ends up on the default WP preview URL, this redirects them to our Next preview API route
 */
 add_action("template_redirect", function () {
-	if (isset($_GET["preview"]) && $_GET["preview"] == true) {
+  if (isset($_GET["preview"]) && $_GET["preview"] == true) {
     $front_end_url = get_frontend_url();
-    $api_options = get_option('next_wp_rest_settings');
-    $preview_api_route = $api_options['preview_api_route'] ? $api_options['preview_api_route'] : 'preview';
+    $preview_api_route = NEXT_WP_PREVIEW_API_ROUTE ? NEXT_WP_PREVIEW_API_ROUTE : 'preview';
     $secret = get_preview_secret();
     $postId = $_GET["p"];
     $postType = get_post_type($postId); // the master/parent post's post type --> important for next-wp to retrieve the correct revision data  
-		wp_redirect( "{$front_end_url}/api/{$preview_api_route}?postId={$postId}&postType={$postType}&secret={$secret}" );
+    wp_redirect("{$front_end_url}/api/{$preview_api_route}?postId={$postId}&postType={$postType}&secret={$secret}");
     exit();
-	}
+  }
 });
 
 
 /*
   Override the href for the site name & view site links (to use our Next front-end URL) in the WP admin toolbar, and open them in new tabs
 */
-add_action( 'admin_bar_menu', 'customize_my_wp_admin_bar', 80 );
-function customize_my_wp_admin_bar( $wp_admin_bar ) {
+add_action('admin_bar_menu', 'customize_my_wp_admin_bar', 80);
+function customize_my_wp_admin_bar($wp_admin_bar)
+{
 
-    // Get references to the 'view-site' and 'site-name' nodes to modify.
-    $view_site_node = $wp_admin_bar->get_node('view-site');
-    $site_name_node = $wp_admin_bar->get_node('site-name');
+  // Get references to the 'view-site' and 'site-name' nodes to modify.
+  $view_site_node = $wp_admin_bar->get_node('view-site');
+  $site_name_node = $wp_admin_bar->get_node('site-name');
 
-    // Change targets
-    $view_site_node->meta['target'] = '_blank';
-    $site_name_node->meta['target'] = '_blank';
+  // Change targets
+  $view_site_node->meta['target'] = '_blank';
+  $site_name_node->meta['target'] = '_blank';
 
-    // Change hrefs to our Next front-end URL
-    $url = get_frontend_url();
-    $view_site_node->href = $url;
-    $site_name_node->href = $url;
+  // Change hrefs to our Next front-end URL
+  $url = get_frontend_url();
+  $view_site_node->href = $url;
+  $site_name_node->href = $url;
 
-    // Update Nodes
-    $wp_admin_bar->add_node($view_site_node);
-    $wp_admin_bar->add_node($site_name_node);
-
+  // Update Nodes
+  $wp_admin_bar->add_node($view_site_node);
+  $wp_admin_bar->add_node($site_name_node);
 }
 
 
@@ -151,8 +142,7 @@ if ($enable_isr) {
   function revalidate_on_save($post_ID, $post)
   {
     $front_end_url = get_frontend_url();
-    $api_options = get_option('next_wp_rest_settings');
-    $revalidate_api_route = $api_options['revalidate_api_route'] ? $api_options['revalidate_api_route'] : 'revalidate';
+    $revalidate_api_route = NEXT_WP_REVALIDATE_API_ROUTE ? NEXT_WP_REVALIDATE_API_ROUTE : 'revalidate';
 
     // manually add environment URLs to this array if you wish to enable on-demand ISR for that environment (useful for testing one-off Vercel deployments or when running a production build locally) 
     $environments_to_revalidate = [$front_end_url, "http://localhost:3000"];
@@ -161,11 +151,11 @@ if ($enable_isr) {
     $secret = get_preview_secret();
 
     foreach ($environments_to_revalidate as $url) {
-      try{
+      try {
         wp_remote_get("{$url}/api/{$revalidate_api_route}/{$slug}?post_type={$type}&secret={$secret}");
-      }catch(Exception $e){
+      } catch (Exception $e) {
         echo 'Error while regenerating static page for url "', $url, '" -- error message: ', $e->getMessage(), "\n";
-      }  
+      }
     }
   }
 }
@@ -177,17 +167,16 @@ if ($enable_isr) {
   Next-wp will read this cookie to determine when to show the AdminBar component. We use a redirect rather than
   a GET request so that it also works while in local development (can't GET request localhost from WP) 
 */
-function login_on_frontend() {
+function login_on_frontend()
+{
   $url = get_frontend_url();
   $secret = get_preview_secret();
-  $api_options = get_option('next_wp_rest_settings');
-  $login_api_route = $api_options['login_api_route'] ? $api_options['login_api_route'] : 'login';  
+  $login_api_route = NEXT_WP_LOGIN_API_ROUTE ? NEXT_WP_LOGIN_API_ROUTE : 'login';
 
-  try{
+  try {
     $res = wp_redirect("{$url}/api/{$login_api_route}?secret={$secret}");
     exit();
-    // write_log($res);
-  }catch(Exception $e){
+  } catch (Exception $e) {
     echo "Error while logging in on front-end ({$url}). Error message: ", $e->getMessage(), "\n";
   }
 }
@@ -200,17 +189,16 @@ add_action('wp_login', 'login_on_frontend');
   Next-wp will read this cookie to determine when to show the AdminBar component. We use a redirect rather than
   a GET request so that it also works while in local development (can't GET request localhost from WP) 
 */
-function logout_on_frontend() {
+function logout_on_frontend()
+{
   $url = get_frontend_url();
   $secret = get_preview_secret();
-  $api_options = get_option('next_wp_rest_settings');
-  $logout_api_route = $api_options['logout_api_route'] ? $api_options['logout_api_route'] : 'logout';
+  $logout_api_route = NEXT_WP_LOGOUT_API_ROUTE ? NEXT_WP_LOGOUT_API_ROUTE : 'logout';
 
-  try{
+  try {
     $res = wp_redirect("{$url}/api/{$logout_api_route}?secret={$secret}");
     exit();
-    // write_log($res);
-  }catch(Exception $e){
+  } catch (Exception $e) {
     write_log("Error while logging out on front-end ({$url}). Error message: ", $e->getMessage(), "\n");
   }
 }
