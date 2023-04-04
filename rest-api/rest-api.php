@@ -4,9 +4,8 @@
   Get Options from settings
 */
 
-$options = get_option('next_wp_rest_settings');
-$enable_favicon = $options['enable_favicon'] ?? NULL;
-$enable_jwt_no_expiry = $options['enable_jwt_no_expiry'] ?? NULL;
+$enable_favicon = NEXT_WP_ENABLE_FAVICON ?? NULL;
+$enable_jwt_no_expiry = NEXT_WP_JWT_NO_EXPIRY ?? NULL;
 
 /*
   Expose 32x32 favicon to post and page rest-api requests

@@ -7,8 +7,7 @@
 
 */
 
-$seo_options = get_option('next_wp_seo_settings');
-$override_frontend_url = $seo_options['enable_url_override'] ?? NULL;
+$override_frontend_url = NEXT_WP_YOAST_USE_FRONTEND_URL ?? NULL;
 
 
 if ($override_frontend_url) :
