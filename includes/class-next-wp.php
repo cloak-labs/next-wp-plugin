@@ -122,6 +122,12 @@ class Next_Wp {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-next-wp-public.php';
 
+    /**
+		 * The class responsible for defining all ISR functionality
+		 * 
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-next-wp-isr.php';
+
 		$this->loader = new Next_Wp_Loader();
 
 	}
