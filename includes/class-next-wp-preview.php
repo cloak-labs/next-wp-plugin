@@ -27,6 +27,7 @@ class Next_Wp_preview
   {
     $this->add_frontend_login();
     $this->add_frontend_logout();
+    $this->add_frontend_preview_link();
   }
 
   /**
@@ -118,6 +119,30 @@ class Next_Wp_preview
     }
   }
 
+  /** 
+   * Modify 'Preview' links on posts, pages to point to frontend URL
+   * Request to NextJS API Route generates the frontend page using preview data and redirects to it
+   * Requires a 'preview secret' as a query param to match on Wordpress and NextJS server
+   * 
+   * @param bool NEXT_WP_PREVIEW_API_ROUTE
+   * @param string $preview_link
+   * @param object $post
+   * 
+   * @return string
+   * 
+   * @since    1.0.0
+   */
+  public function get_preview_url($preview_link, $post)
+  {
+    $preview_api_route = NEXT_WP_PREVIEW_API_ROUTE ? NEXT_WP_PREVIEW_API_ROUTE : 'preview';
+    $revisionId = $post->ID; // the ID of the post revision, not the master post
+    $postId = $post->post_parent; // the revision's parent == the post we're previewing
+    $postType = get_post_type($postId); // the master/parent post's post type --> important for next-wp to retrieve the correct revision data  
+    $secret = $this->get_preview_secret();
+    $front_end_url = $this->get_frontend_url();
+    return "{$front_end_url}/api/{$preview_api_route}?revisionId={$revisionId}&postId={$postId}&postType={$postType}&secret={$secret}";
+  }
+
   /**
    * @return void
    * 
@@ -125,7 +150,7 @@ class Next_Wp_preview
    */
   private function add_frontend_login()
   {
-    add_action('wp_login', 'login_on_frontend');
+    add_action('wp_login', array($this, 'logout_on_frontend'));
   }
 
   /**
@@ -135,6 +160,22 @@ class Next_Wp_preview
    */
   private function add_frontend_logout()
   {
-    add_action('wp_logout', 'logout_on_frontend');
+    add_action('wp_logout', array($this, 'logout_on_frontend'));
+  }
+
+  /**
+   * @param bool NEXT_WP_ENABLE_PREVIEW_POST
+   * 
+   * @return void
+   * 
+   * @since    1.0.0
+   */
+  private function add_frontend_preview_link()
+  {
+    if (defined(NEXT_WP_ENABLE_PREVIEW_POST)) {
+      if (NEXT_WP_ENABLE_PREVIEW_POST === TRUE) {
+        add_filter('preview_post_link', array($this, 'get_preview_url'), 10);
+      }
+    }
   }
 }
