@@ -75,6 +75,8 @@ class Next_Wp_preview
    * Next-wp will read this cookie to determine when to show the AdminBar component. We use a redirect rather than
    * a GET request so that it also works while in local development (can't GET request localhost from WP) 
    *
+   * @param string NEXT_WP_LOGIN_API_ROUTE
+   * 
    * @return void 
    */
   public function login_on_frontend()
@@ -98,6 +100,8 @@ class Next_Wp_preview
    * Next-wp will read this cookie to determine when to show the AdminBar component. We use a redirect rather than
    * a GET request so that it also works while in local development (can't GET request localhost from WP) 
    *
+   * @param string NEXT_WP_LOGOUT_API_ROUTE
+   * 
    * @return void
    */
   public function logout_on_frontend()
