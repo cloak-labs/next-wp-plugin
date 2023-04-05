@@ -28,47 +28,8 @@ class Next_Wp_preview
     $this->add_frontend_login();
     $this->add_frontend_logout();
     $this->add_frontend_preview_link();
+    $this->add_frontend_preview_redirect();
   }
-
-  /**
-   * @param bool NEXT_WP_ENABLE_DEV_MODE
-   * @param string NEXT_WP_NEXT_FRONTEND_URL
-   * 
-   * @return string
-   * 
-   * @since    1.0.0
-   */
-  public static function get_frontend_url()
-  {
-    if (defined(NEXT_WP_ENABLE_DEV_MODE)) {
-      if (NEXT_WP_ENABLE_DEV_MODE === TRUE) {
-        return "http://localhost:3000";
-      }
-    }
-
-    if (defined(NEXT_WP_NEXT_FRONTEND_URL)) {
-      return NEXT_WP_NEXT_FRONTEND_URL;
-    }
-
-    return site_url();
-  }
-
-  /**
-   * 
-   * @param string NEXT_WP_PREVIEW_SECRET
-   * 
-   * @return string
-   * 
-   * @since    1.0.0
-   */
-  public static function get_preview_secret()
-  {
-    if (defined(NEXT_WP_PREVIEW_SECRET)) {
-      return NEXT_WP_PREVIEW_SECRET;
-    }
-    return "";
-  }
-
 
   /** 
    * Whenever you log in to WordPress, we redirect to an API endpoint on our Next front-end (/api/login) 
@@ -82,8 +43,8 @@ class Next_Wp_preview
    */
   public function login_on_frontend()
   {
-    $url = $this->get_frontend_url();
-    $secret = $this->get_preview_secret();
+    $url = Next_Wp::get_frontend_url();
+    $secret = Next_Wp::get_preview_secret();
     $login_api_route = NEXT_WP_LOGIN_API_ROUTE ? NEXT_WP_LOGIN_API_ROUTE : 'login';
 
     try {
@@ -107,8 +68,8 @@ class Next_Wp_preview
    */
   public function logout_on_frontend()
   {
-    $url = $this->get_frontend_url();
-    $secret = $this->get_preview_secret();
+    $url = Next_Wp::get_frontend_url();
+    $secret = Next_Wp::get_preview_secret();
     $logout_api_route = NEXT_WP_LOGOUT_API_ROUTE ? NEXT_WP_LOGOUT_API_ROUTE : 'logout';
 
     try {
@@ -138,9 +99,32 @@ class Next_Wp_preview
     $revisionId = $post->ID; // the ID of the post revision, not the master post
     $postId = $post->post_parent; // the revision's parent == the post we're previewing
     $postType = get_post_type($postId); // the master/parent post's post type --> important for next-wp to retrieve the correct revision data  
-    $secret = $this->get_preview_secret();
-    $front_end_url = $this->get_frontend_url();
+    $secret = Next_Wp::get_preview_secret();
+    $front_end_url = Next_Wp::get_frontend_url();
     return "{$front_end_url}/api/{$preview_api_route}?revisionId={$revisionId}&postId={$postId}&postType={$postType}&secret={$secret}";
+  }
+
+  /** 
+   * Redirect WP preview page to Next preview --> this is in addition to our 'preview_post_link' filter above that changes the preview link (which doesn't work all the time due to known bugs).
+   * If somehow our 'preview_post_link' filter doesn't work and the admin user ends up on the default WP preview URL, this redirects them to our Next preview API route
+   * 
+   * @param string NEXT_WP_PREVIEW_API_ROUTE
+   * 
+   * @return void
+   * 
+   * @since    1.0.0
+   */
+  public static function preview_post_redirect()
+  {
+    if (isset($_GET["preview"]) && $_GET["preview"] == true) {
+      $front_end_url = Next_Wp::get_frontend_url();
+      $preview_api_route = NEXT_WP_PREVIEW_API_ROUTE ? NEXT_WP_PREVIEW_API_ROUTE : 'preview';
+      $secret = Next_Wp::get_preview_secret();
+      $postId = $_GET["p"];
+      $postType = get_post_type($postId); // the master/parent post's post type --> important for next-wp to retrieve the correct revision data  
+      wp_redirect("{$front_end_url}/api/{$preview_api_route}?postId={$postId}&postType={$postType}&secret={$secret}");
+      exit();
+    }
   }
 
   /**
@@ -177,5 +161,15 @@ class Next_Wp_preview
         add_filter('preview_post_link', array($this, 'get_preview_url'), 10);
       }
     }
+  }
+
+  /**
+   * @return void
+   * 
+   * @since    1.0.0
+   */
+  private function add_frontend_preview_redirect()
+  {
+    add_action('template_redirect', array($this, 'preview_post_redirect'));
   }
 }
