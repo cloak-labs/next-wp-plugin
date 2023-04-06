@@ -1,21 +1,21 @@
 ## NextWP Wordpress Plugin
 This plugin is designed to integrate a Wordpress backend with a NextJS frontend. It has a required NPM package to be used in tandem with it.
 
+# REST API
+This plugin provides functionality listed below specific to NextJS, all generic features added to the REST API housed in the plugin HeadlessWP. This includes adding blocks data to the REST API, extending the JWT authorization time, including Yoast SEO data in REST API queries etc.
+
 ## Features
-- Configure frontend links in Wordpress to point to NextJS frontend
-- Configure & enable Wordpress preview mode to work with NextJS frontend
-- Enables ISR for new and updated pages to trigger NextJS page updates
-- Configures Yoast to use NextJS frontend URL for meta tags
-- Configures a longer JWT expiry date
-- Integrates Wordpress login/logout with frontend components
+- Integrates post and page previews with NextJS frontend
+- Integrates logging in and out of Wordpress with NextJS frontend
+- Integrates Incremental Static Regeneration functionality with NextJS frontend. As posts & pages are edited & saved in Wordpress, regeneration is triggered for the frontend as opposed to a full build step.
+- Uses Code as Configuration approach, all config for this plugin is through defining constants, no configuration data is saved to the database
+- Adds a NextWP menu item to the backend for viewing state of config variables
 
 ## Next-WP NPM Package
 - [npm](https://www.npmjs.com/package/next-wp)
 - [github](https://github.com/cloak-labs/next-wp)
 
 ## Dependencies
-- [Yoast SEO Wordpress Plugin](https://wordpress.org/plugins/wordpress-seo/)
-- [JWT Authentication for WP-API Wordpress Plugin](https://wordpress.org/plugins/jwt-authentication-for-wp-rest-api/)
 - [Headless WP Wordpress Plugin](https://github.com/cloak-labs/headless-wp-plugin)
 
 ## Installation
@@ -31,17 +31,10 @@ define('NEXT_WP_NEXT_FRONTEND_URL', '');
 define('NEXT_WP_PREVIEW_SECRET', '');
 define('NEXT_WP_ENABLE_DEV_MODE', TRUE);
 
-# Pages & Previews
-define('NEXT_WP_OVERRIDE_VIEW_POST_LINK', TRUE);
-define('NEXT_WP_OVERRIDE_PREVIEW_POST_LINK', TRUE);
-
-# Authentication
-define('NEXT_WP_JWT_NO_EXPIRY', TRUE);
-
 # API Routes
-define('NEXT_WP_PREVIEW_API_ROUTE', '');
-define('NEXT_WP_REVALIDATE_API_ROUTE', '');
 define('NEXT_WP_LOGIN_API_ROUTE', '');
 define('NEXT_WP_LOGOUT_API_ROUTE', '');
+define('NEXT_WP_PREVIEW_API_ROUTE', '');
+define('NEXT_WP_REVALIDATE_API_ROUTE', '');
 ```
 4. Profit
