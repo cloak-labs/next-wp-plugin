@@ -34,8 +34,9 @@ class Next_Wp_Isr
    * rebuild static pages/posts immediately upon saving your changes in WP
    * 
    * 
-   * @param $post_ID
-   * @param $post
+   * @param int $post_ID
+   * @param object $post
+   * @param bool NEXT_WP_REVALIDATE_API_ROUTE
    * 
    * @return void
    * 
@@ -65,20 +66,12 @@ class Next_Wp_Isr
    * 
    * rebuild static pages/posts immediately upon saving your changes in WP
    * 
-   * 
-   * @param bool NEXT_WP_ENABLE_ISR
-   * @param bool NEXT_WP_REVALIDATE_API_ROUTE
-   * 
    * @return void
    * 
    * @since    1.0.0
    */
   public function enable_isr()
   {
-    if (defined(NEXT_WP_ENABLE_ISR)) {
-      if (NEXT_WP_ENABLE_ISR === TRUE) {
-        add_action('save_post_page', array($this, 'revalidate_on_save'), 10, 2);
-      }
-    }
+    add_action('save_post_page', array($this, 'revalidate_on_save'), 10, 2);
   }
 }
