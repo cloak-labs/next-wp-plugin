@@ -1,7 +1,7 @@
-## NextWP Wordpress Plugin
+# NextWP Wordpress Plugin
 This plugin is designed to integrate a Wordpress backend with a NextJS frontend. It has a required NPM package to be used in tandem with it.
 
-# REST API
+## REST API
 This plugin provides functionality listed below specific to NextJS, all generic features added to the REST API housed in the plugin HeadlessWP. This includes adding blocks data to the REST API, extending the JWT authorization time, including Yoast SEO data in REST API queries etc.
 
 ## Features
