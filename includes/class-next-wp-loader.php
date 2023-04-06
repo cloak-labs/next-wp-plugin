@@ -19,7 +19,7 @@
  *
  * @package    Next_Wp
  * @subpackage Next_Wp/includes
- * @author     Cloak Labs <wade@stikkymedia.com>
+ * @author     Cloak Labs 
  */
 class Next_Wp_Loader {
 

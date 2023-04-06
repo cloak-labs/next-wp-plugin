@@ -18,7 +18,7 @@
  *
  * @package    Next_Wp
  * @subpackage Next_Wp/admin
- * @author     Cloak Labs <wade@stikkymedia.com>
+ * @author     Cloak Labs 
  */
 class Next_Wp_Admin
 {
