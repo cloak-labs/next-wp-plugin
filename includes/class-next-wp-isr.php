@@ -45,7 +45,7 @@ class Next_Wp_Isr
   public static function revalidate_on_save($post_ID, $post)
   {
     $front_end_url = get_frontend_url();
-    $revalidate_api_route = NEXT_WP_REVALIDATE_API_ROUTE ? NEXT_WP_REVALIDATE_API_ROUTE : 'revalidate';
+    $revalidate_api_route = defined('NEXT_WP_REVALIDATE_API_ROUTE') ? NEXT_WP_REVALIDATE_API_ROUTE : 'revalidate';
     // manually add environment URLs to this array if you wish to enable on-demand ISR for that environment (useful for testing one-off Vercel deployments or when running a production build locally) 
     $environments_to_revalidate = [$front_end_url, "http://localhost:3000"];
     $slug = $post->post_name;

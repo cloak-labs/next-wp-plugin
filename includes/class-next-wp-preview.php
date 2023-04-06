@@ -45,7 +45,7 @@ class Next_Wp_preview
   {
     $url = Next_Wp::get_frontend_url();
     $secret = Next_Wp::get_preview_secret();
-    $login_api_route = NEXT_WP_LOGIN_API_ROUTE ? NEXT_WP_LOGIN_API_ROUTE : 'login';
+    $login_api_route = defined('NEXT_WP_LOGIN_API_ROUTE') ? NEXT_WP_LOGIN_API_ROUTE : 'login';
 
     try {
       $res = wp_redirect("{$url}/api/{$login_api_route}?secret={$secret}");
@@ -70,7 +70,7 @@ class Next_Wp_preview
   {
     $url = Next_Wp::get_frontend_url();
     $secret = Next_Wp::get_preview_secret();
-    $logout_api_route = NEXT_WP_LOGOUT_API_ROUTE ? NEXT_WP_LOGOUT_API_ROUTE : 'logout';
+    $logout_api_route = defined('NEXT_WP_LOGOUT_API_ROUTE') ? NEXT_WP_LOGOUT_API_ROUTE : 'logout';
 
     try {
       $res = wp_redirect("{$url}/api/{$logout_api_route}?secret={$secret}");
@@ -95,7 +95,7 @@ class Next_Wp_preview
    */
   public function get_preview_url($preview_link, $post)
   {
-    $preview_api_route = NEXT_WP_PREVIEW_API_ROUTE ? NEXT_WP_PREVIEW_API_ROUTE : 'preview';
+    $preview_api_route = defined('NEXT_WP_PREVIEW_API_ROUTE') ? NEXT_WP_PREVIEW_API_ROUTE : 'preview';
     $revisionId = $post->ID; // the ID of the post revision, not the master post
     $postId = $post->post_parent; // the revision's parent == the post we're previewing
     $postType = get_post_type($postId); // the master/parent post's post type --> important for next-wp to retrieve the correct revision data  
@@ -118,7 +118,7 @@ class Next_Wp_preview
   {
     if (isset($_GET["preview"]) && $_GET["preview"] == true) {
       $front_end_url = Next_Wp::get_frontend_url();
-      $preview_api_route = NEXT_WP_PREVIEW_API_ROUTE ? NEXT_WP_PREVIEW_API_ROUTE : 'preview';
+      $preview_api_route = defined('NEXT_WP_PREVIEW_API_ROUTE') ? NEXT_WP_PREVIEW_API_ROUTE : 'preview';
       $secret = Next_Wp::get_preview_secret();
       $postId = $_GET["p"];
       $postType = get_post_type($postId); // the master/parent post's post type --> important for next-wp to retrieve the correct revision data  

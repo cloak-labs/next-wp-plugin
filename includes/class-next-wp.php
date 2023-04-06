@@ -242,13 +242,13 @@ class Next_Wp
    */
   public static function get_frontend_url()
   {
-    if (defined(NEXT_WP_ENABLE_DEV_MODE)) {
+    if (defined('NEXT_WP_ENABLE_DEV_MODE')) {
       if (NEXT_WP_ENABLE_DEV_MODE === TRUE) {
         return "http://localhost:3000";
       }
     }
 
-    if (defined(NEXT_WP_NEXT_FRONTEND_URL)) {
+    if (defined('NEXT_WP_NEXT_FRONTEND_URL')) {
       return NEXT_WP_NEXT_FRONTEND_URL;
     }
 
@@ -265,7 +265,7 @@ class Next_Wp
    */
   public static function get_preview_secret()
   {
-    if (defined(NEXT_WP_PREVIEW_SECRET)) {
+    if (defined('NEXT_WP_PREVIEW_SECRET')) {
       return NEXT_WP_PREVIEW_SECRET;
     }
     return "";
