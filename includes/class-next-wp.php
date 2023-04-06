@@ -112,7 +112,19 @@ class Next_Wp
      * of the plugin.
      */
     require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-next-wp-i18n.php';
+    
+    /**
+     * The class responsible for defining all ISR functionality
+     * 
+     */
+    require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-next-wp-isr.php';
 
+    /**
+     * The class responsible for defining all ISR functionality
+     * 
+     */
+    require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-next-wp-preview.php';
+    
     /**
      * The class responsible for defining all actions that occur in the admin area.
      */
@@ -124,17 +136,6 @@ class Next_Wp
      */
     require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-next-wp-public.php';
 
-    /**
-     * The class responsible for defining all ISR functionality
-     * 
-     */
-    require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-next-wp-isr.php';
-
-    /**
-     * The class responsible for defining all ISR functionality
-     * 
-     */
-    require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-next-wp-preview.php';
 
     $this->loader = new Next_Wp_Loader();
   }
