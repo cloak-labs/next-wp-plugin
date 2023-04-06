@@ -4,7 +4,7 @@
  * Fired during plugin activation
  *
  * @link       https://https://github.com/cloak-labs
- * @since      1.0.0
+ * @since      0.6.0
  *
  * @package    Next_Wp
  * @subpackage Next_Wp/includes
@@ -15,7 +15,7 @@
  *
  * This class defines all code necessary to run NextJS preview mode.
  *
- * @since      1.0.0
+ * @since      0.6.0
  * @package    Next_Wp
  * @subpackage Next_Wp/includes
  * @author     Cloak Labs 
@@ -91,7 +91,7 @@ class Next_Wp_preview
    * 
    * @return string
    * 
-   * @since    1.0.0
+   * @since    0.6.0
    */
   public function get_preview_url($preview_link, $post)
   {
@@ -112,7 +112,7 @@ class Next_Wp_preview
    * 
    * @return void
    * 
-   * @since    1.0.0
+   * @since    0.6.0
    */
   public static function preview_post_redirect()
   {
@@ -130,7 +130,7 @@ class Next_Wp_preview
   /**
    * @return void
    * 
-   * @since    1.0.0
+   * @since    0.6.0
    */
   private function add_frontend_login()
   {
@@ -140,7 +140,7 @@ class Next_Wp_preview
   /**
    * @return void
    * 
-   * @since    1.0.0
+   * @since    0.6.0
    */
   private function add_frontend_logout()
   {
@@ -150,7 +150,7 @@ class Next_Wp_preview
   /**
    * @return void
    * 
-   * @since    1.0.0
+   * @since    0.6.0
    */
   private function add_frontend_preview_link()
   {
@@ -160,7 +160,7 @@ class Next_Wp_preview
   /**
    * @return void
    * 
-   * @since    1.0.0
+   * @since    0.6.0
    */
   private function add_frontend_preview_redirect()
   {

@@ -6,7 +6,7 @@
  * This file is used to markup the public-facing aspects of the plugin.
  *
  * @link       https://https://github.com/cloak-labs
- * @since      1.0.0
+ * @since      0.6.0
  *
  * @package    Next_Wp
  * @subpackage Next_Wp/public/partials

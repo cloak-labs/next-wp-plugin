@@ -9,14 +9,14 @@
  * that starts the plugin.
  *
  * @link              https://https://github.com/cloak-labs
- * @since             1.0.0
+ * @since             0.6.0
  * @package           Next_Wp
  *
  * @wordpress-plugin
  * Plugin Name:       NextWP
  * Plugin URI:        https://https://github.com/cloak-labs/next-wp-plugin
  * Description:       Base plugin for Next-WP configuration
- * Version:           1.0.0
+ * Version:           0.6.0
  * Author:            Cloak Labs
  * Author URI:        https://https://github.com/cloak-labs
  * License:           GPL-2.0+
@@ -32,10 +32,10 @@ if ( ! defined( 'WPINC' ) ) {
 
 /**
  * Currently plugin version.
- * Start at version 1.0.0 and use SemVer - https://semver.org
+ * Start at version 0.6.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'NEXT_WP_VERSION', '1.0.0' );
+define( 'NEXT_WP_VERSION', '0.6.0' );
 
 /**
  * The code that runs during plugin activation.
@@ -71,7 +71,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-next-wp.php';
  * then kicking off the plugin from this point in the file does
  * not affect the page life cycle.
  *
- * @since    1.0.0
+ * @since    0.6.0
  */
 function run_next_wp() {
 

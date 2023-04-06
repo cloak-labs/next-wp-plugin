@@ -7,7 +7,7 @@
  * public-facing side of the site and the admin area.
  *
  * @link       https://https://github.com/cloak-labs
- * @since      1.0.0
+ * @since      0.6.0
  *
  * @package    Next_Wp
  * @subpackage Next_Wp/includes
@@ -22,7 +22,7 @@
  * Also maintains the unique identifier of this plugin as well as the current
  * version of the plugin.
  *
- * @since      1.0.0
+ * @since      0.6.0
  * @package    Next_Wp
  * @subpackage Next_Wp/includes
  * @author     Cloak Labs 
@@ -34,7 +34,7 @@ class Next_Wp
    * The loader that's responsible for maintaining and registering all hooks that power
    * the plugin.
    *
-   * @since    1.0.0
+   * @since    0.6.0
    * @access   protected
    * @var      Next_Wp_Loader    $loader    Maintains and registers all hooks for the plugin.
    */
@@ -43,7 +43,7 @@ class Next_Wp
   /**
    * The unique identifier of this plugin.
    *
-   * @since    1.0.0
+   * @since    0.6.0
    * @access   protected
    * @var      string    $plugin_name    The string used to uniquely identify this plugin.
    */
@@ -52,7 +52,7 @@ class Next_Wp
   /**
    * The current version of the plugin.
    *
-   * @since    1.0.0
+   * @since    0.6.0
    * @access   protected
    * @var      string    $version    The current version of the plugin.
    */
@@ -65,14 +65,14 @@ class Next_Wp
    * Load the dependencies, define the locale, and set the hooks for the admin area and
    * the public-facing side of the site.
    *
-   * @since    1.0.0
+   * @since    0.6.0
    */
   public function __construct()
   {
     if (defined('NEXT_WP_VERSION')) {
       $this->version = NEXT_WP_VERSION;
     } else {
-      $this->version = '1.0.0';
+      $this->version = '0.6.0';
     }
     $this->plugin_name = 'next-wp';
 
@@ -95,7 +95,7 @@ class Next_Wp
    * Create an instance of the loader which will be used to register the hooks
    * with WordPress.
    *
-   * @since    1.0.0
+   * @since    0.6.0
    * @access   private
    */
   private function load_dependencies()
@@ -146,7 +146,7 @@ class Next_Wp
    * Uses the Next_Wp_i18n class in order to set the domain and to register the hook
    * with WordPress.
    *
-   * @since    1.0.0
+   * @since    0.6.0
    * @access   private
    */
   private function set_locale()
@@ -161,7 +161,7 @@ class Next_Wp
    * Register all of the hooks related to the admin area functionality
    * of the plugin.
    *
-   * @since    1.0.0
+   * @since    0.6.0
    * @access   private
    */
   private function define_admin_hooks()
@@ -177,7 +177,7 @@ class Next_Wp
    * Register all of the hooks related to the public-facing functionality
    * of the plugin.
    *
-   * @since    1.0.0
+   * @since    0.6.0
    * @access   private
    */
   private function define_public_hooks()
@@ -192,7 +192,7 @@ class Next_Wp
   /**
    * Run the loader to execute all of the hooks with WordPress.
    *
-   * @since    1.0.0
+   * @since    0.6.0
    */
   public function run()
   {
@@ -203,7 +203,7 @@ class Next_Wp
    * The name of the plugin used to uniquely identify it within the context of
    * WordPress and to define internationalization functionality.
    *
-   * @since     1.0.0
+   * @since     0.6.0
    * @return    string    The name of the plugin.
    */
   public function get_plugin_name()
@@ -214,7 +214,7 @@ class Next_Wp
   /**
    * The reference to the class that orchestrates the hooks with the plugin.
    *
-   * @since     1.0.0
+   * @since     0.6.0
    * @return    Next_Wp_Loader    Orchestrates the hooks of the plugin.
    */
   public function get_loader()
@@ -225,7 +225,7 @@ class Next_Wp
   /**
    * Retrieve the version number of the plugin.
    *
-   * @since     1.0.0
+   * @since     0.6.0
    * @return    string    The version number of the plugin.
    */
   public function get_version()
@@ -239,7 +239,7 @@ class Next_Wp
    * 
    * @return string
    * 
-   * @since    1.0.0
+   * @since    0.6.0
    */
   public static function get_frontend_url()
   {
@@ -262,7 +262,7 @@ class Next_Wp
    * 
    * @return string
    * 
-   * @since    1.0.0
+   * @since    0.6.0
    */
   public static function get_preview_secret()
   {
