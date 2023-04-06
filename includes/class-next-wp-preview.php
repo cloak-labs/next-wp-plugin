@@ -148,19 +148,13 @@ class Next_Wp_preview
   }
 
   /**
-   * @param bool NEXT_WP_ENABLE_PREVIEW_POST
-   * 
    * @return void
    * 
    * @since    1.0.0
    */
   private function add_frontend_preview_link()
   {
-    if (defined(NEXT_WP_ENABLE_PREVIEW_POST)) {
-      if (NEXT_WP_ENABLE_PREVIEW_POST === TRUE) {
-        add_filter('preview_post_link', array($this, 'get_preview_url'), 10);
-      }
-    }
+    add_filter('preview_post_link', array($this, 'get_preview_url'), 10);
   }
 
   /**
