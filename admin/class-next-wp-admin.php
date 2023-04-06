@@ -4,7 +4,7 @@
  * The admin-specific functionality of the plugin.
  *
  * @link       https://https://github.com/cloak-labs
- * @since      1.0.0
+ * @since      0.6.0
  *
  * @package    Next_Wp
  * @subpackage Next_Wp/admin
@@ -26,7 +26,7 @@ class Next_Wp_Admin
   /**
    * The ID of this plugin.
    *
-   * @since    1.0.0
+   * @since    0.6.0
    * @access   private
    * @var      string    $plugin_name    The ID of this plugin.
    */
@@ -35,7 +35,7 @@ class Next_Wp_Admin
   /**
    * The version of this plugin.
    *
-   * @since    1.0.0
+   * @since    0.6.0
    * @access   private
    * @var      string    $version    The current version of this plugin.
    */
@@ -44,7 +44,7 @@ class Next_Wp_Admin
   /**
    * Initialize the class and set its properties.
    *
-   * @since    1.0.0
+   * @since    0.6.0
    * @param      string    $plugin_name       The name of this plugin.
    * @param      string    $version    The version of this plugin.
    */
@@ -67,7 +67,7 @@ class Next_Wp_Admin
    * 
    * @return void
    * 
-   * @since    1.0.0
+   * @since    0.6.0
    */
   public static function customize_admin_bar($wp_admin_bar)
   {
@@ -95,7 +95,7 @@ class Next_Wp_Admin
    * 
    * @return string
    *
-   * @since    1.0.0
+   * @since    0.6.0
    */
   public static function custom_view_page_url($permalink, $post)
   {
@@ -112,7 +112,7 @@ class Next_Wp_Admin
    * 
    * @return void
    *
-   * @since    1.0.0
+   * @since    0.6.0
    */
   public function nextwp_options_page()
   { ?>
@@ -131,7 +131,7 @@ class Next_Wp_Admin
    * 
    * @return void
    *
-   * @since    1.0.0
+   * @since    0.6.0
    */
   private static function echo_variable($var)
   {
@@ -164,7 +164,7 @@ class Next_Wp_Admin
    * 
    * @return void
    *
-   * @since    1.0.0
+   * @since    0.6.0
    */
   private static function settings_row($name)
   {
@@ -188,7 +188,7 @@ class Next_Wp_Admin
    * 
    * @return void
    *
-   * @since    1.0.0
+   * @since    0.6.0
    */
   public function nextwp_config_section_callback()
   { ?>
@@ -198,13 +198,6 @@ class Next_Wp_Admin
         self::settings_row('NEXT_WP_NEXT_FRONTEND_URL');
         self::settings_row('NEXT_WP_PREVIEW_SECRET');
         self::settings_row('NEXT_WP_ENABLE_DEV_MODE');
-        self::settings_row('NEXT_WP_ENABLE_ISR');
-        self::settings_row('NEXT_WP_OVERRIDE_VIEW_POST_LINK');
-        self::settings_row('NEXT_WP_OVERRIDE_PREVIEW_POST_LINK');
-        self::settings_row('NEXT_WP_YOAST_USE_FRONTEND_URL');
-        self::settings_row('NEXT_WP_ENABLE_FAVICON');
-        self::settings_row('NEXT_WP_JWT_NO_EXPIRY');
-        self::settings_row('NEXT_WP_ENABLE_PREVIEW_POST');
         self::settings_row('NEXT_WP_PREVIEW_API_ROUTE');
         self::settings_row('NEXT_WP_REVALIDATE_API_ROUTE');
         self::settings_row('NEXT_WP_LOGIN_API_ROUTE');
@@ -219,7 +212,7 @@ class Next_Wp_Admin
    * 
    * @return void
    *
-   * @since    1.0.0
+   * @since    0.6.0
    */
   public function next_wp_settings_init()
   {
@@ -239,7 +232,7 @@ class Next_Wp_Admin
    * 
    * @return void
    *
-   * @since    1.0.0
+   * @since    0.6.0
    */
   public function add_admin_menu()
   {
@@ -258,7 +251,7 @@ class Next_Wp_Admin
    * 
    * @return void
    *
-   * @since    1.0.0
+   * @since    0.6.0
    */
   private function settings_init()
   {
@@ -270,7 +263,7 @@ class Next_Wp_Admin
    * 
    * @return void
    *
-   * @since    1.0.0
+   * @since    0.6.0
    */
   private function add_menu_item()
   {
@@ -283,7 +276,7 @@ class Next_Wp_Admin
    * 
    * @return void
    *
-   * @since    1.0.0
+   * @since    0.6.0
    */
   private function add_frontend_links()
   {
@@ -295,7 +288,7 @@ class Next_Wp_Admin
    * 
    * @return void
    *
-   * @since    1.0.0
+   * @since    0.6.0
    */
   private function add_frontend_view_links()
   {
@@ -307,7 +300,7 @@ class Next_Wp_Admin
   /**
    * Register the stylesheets for the admin area.
    *
-   * @since    1.0.0
+   * @since    0.6.0
    */
   public function enqueue_styles()
   {
@@ -330,7 +323,7 @@ class Next_Wp_Admin
   /**
    * Register the JavaScript for the admin area.
    *
-   * @since    1.0.0
+   * @since    0.6.0
    */
   public function enqueue_scripts()
   {
